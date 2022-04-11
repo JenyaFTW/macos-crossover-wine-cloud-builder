@@ -249,6 +249,13 @@ jobs:
           pushd sources/wine
           patch -p1 < ${{ github.workspace }}/msvcrt-sincos.patch
           popd
+          
+      - name: Patch concrt
+        if: startsWith(matrix.CROSS_OVER_VERSION, '21')
+        run: |
+          pushd sources/wine
+          patch -p1 < ${{ github.workspace }}/0001-concrt140.patch
+          popd
 
       ############ Build VKD3D ##############
       - name: Build VKD3D
